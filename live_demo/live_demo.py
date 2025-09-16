@@ -161,13 +161,7 @@ if __name__ == '__main__':
                                       np.zeros(color_img.shape, dtype=color_img.dtype)), 1)
         grid_image = np.concatenate((grid_image1, grid_image2), 0)
 
-        colorbar_height = grid_image.shape[0]
-
-        colorbar = create_colorbar(colorbar_height, 80, config.depthVisualization.minDepth, config.depthVisualization.maxDepth, 
-                                   cv2.COLORMAP_JET, reverse_scale=True)
-        final_display = np.concatenate((grid_image, colorbar), axis=1)
-        
-        cv2.imshow('Live Demo', final_display)
+        cv2.imshow('Live Demo', grid_image)
         keypress = cv2.waitKey(10) & 0xFF
         if keypress == ord('q'):
             break

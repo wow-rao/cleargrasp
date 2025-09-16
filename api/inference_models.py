@@ -8,11 +8,15 @@ import torch
 import torch.multiprocessing as mp
 import torch.nn as nn
 from PIL import Image
-from torchvision import transforms
 from imgaug import augmenters as iaa
 
 from . import utils
 from .modeling import deeplab, deeplab_masks
+
+def to_tensor_custom(numpy_image):
+    float_image = numpy_image.astype(np.float32) / 255.0
+    chw_image = np.transpose(float_image, (2, 0, 1))
+    return torch.from_numpy(chw_image)
 
 
 class InferenceOutlines():
@@ -88,7 +92,7 @@ class InferenceOutlines():
             # Resize Image and convert to tensor
             det_tf = self.transform.to_deterministic()
             img = det_tf.augment_image(img)
-            inputs = transforms.ToTensor()(img)
+            inputs = to_tensor_custom(img)
             inputs = torch.unsqueeze(inputs, 0)
             inputs = inputs.to(self.device)
 
@@ -240,7 +244,7 @@ class InferenceNormals():
             # Resize Image and convert to tensor
             det_tf = self.transform.to_deterministic()
             img = det_tf.augment_image(img)
-            inputs = transforms.ToTensor()(img)
+            inputs = to_tensor_custom(img)
             inputs = torch.unsqueeze(inputs, 0)
             inputs = inputs.to(self.device)
 
@@ -335,7 +339,7 @@ class InferenceMasks():
             # Resize Image and convert to tensor
             det_tf = self.transform.to_deterministic()
             img = det_tf.augment_image(img)
-            inputs = transforms.ToTensor()(img)
+            inputs = to_tensor_custom(img)
             inputs = torch.unsqueeze(inputs, 0)
             inputs = inputs.to(self.device)
 

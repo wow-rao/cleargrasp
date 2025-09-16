@@ -143,11 +143,9 @@ if __name__ == '__main__':
         input_depth_mapped = utils.depth2rgb(input_depth, min_depth=config.depthVisualization.minDepth,
                                              max_depth=config.depthVisualization.maxDepth,
                                              color_mode=cv2.COLORMAP_JET, reverse_scale=True)
-        output_depth = np.clip(output_depth, a_min=0, a_max=1)
         output_depth_mapped = utils.depth2rgb(output_depth, min_depth=config.depthVisualization.minDepth,
                                               max_depth=config.depthVisualization.maxDepth,
                                               color_mode=cv2.COLORMAP_JET, reverse_scale=True)
-        filtered_output_depth = np.clip(filtered_output_depth, a_min=0, a_max=1)
         filtered_output_depth_mapped = utils.depth2rgb(filtered_output_depth,
                                                        min_depth=config.depthVisualization.minDepth,
                                                        max_depth=config.depthVisualization.maxDepth,
@@ -163,8 +161,6 @@ if __name__ == '__main__':
         grid_image = np.concatenate((grid_image1, grid_image2), 0)
 
         colorbar_height = grid_image.shape[0]
-        min_depth_val = config.depthVisualization.minDepth
-        max_depth_val = config.depthVisualization.maxDepth
 
         colorbar = create_colorbar(colorbar_height, 80, config.depthVisualization.minDepth, config.depthVisualization.maxDepth, 
                                    cv2.COLORMAP_JET, reverse_scale=True)

@@ -125,6 +125,7 @@ if __name__ == '__main__':
         output_depth_mapped = utils.depth2rgb(output_depth, min_depth=config.depthVisualization.minDepth,
                                               max_depth=config.depthVisualization.maxDepth,
                                               color_mode=cv2.COLORMAP_JET, reverse_scale=True)
+        print(filtered_output_depth.min(), filtered_output_depth.max())
         filtered_output_depth_mapped = utils.depth2rgb(filtered_output_depth,
                                                        min_depth=config.depthVisualization.minDepth,
                                                        max_depth=config.depthVisualization.maxDepth,

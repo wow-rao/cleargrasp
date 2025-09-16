@@ -187,9 +187,9 @@ def depth2rgb(depth_img, min_depth=0.0, max_depth=1.5, color_mode=cv2.COLORMAP_J
     if dynamic_scaling:
         depth_img_scaled = _normalize_depth_img(depth_img, dtype=np.uint8,
                                                 min_depth=max(depth_img[depth_img > 0].min(), min_depth),    # Add a small epsilon so that min depth does not show up as black (invalid pixels)
-                                                max_depth=min(depth_img.max(), max_depth))
+                                                max_depth=1.0)
     else:
-        depth_img_scaled = _normalize_depth_img(depth_img, dtype=np.uint8, min_depth=min_depth, max_depth=max_depth)
+        depth_img_scaled = _normalize_depth_img(depth_img, dtype=np.uint8, min_depth=min_depth, max_depth=1.0)
 
     if reverse_scale is True:
         depth_img_scaled = np.ma.masked_array(depth_img_scaled, mask=(depth_img_scaled == 0.0))

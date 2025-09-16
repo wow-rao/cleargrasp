@@ -50,7 +50,7 @@ class Camera(object):
         self.depth_intr = np.fromstring(data[(9*4):(9*4+9*4)],np.float32).reshape(3,3)
         self.depth2color_extr = np.fromstring(data[(9*4+9*4):(9*4+9*4+16*4)],np.float32).reshape(4,4)
         depth_scale = np.fromstring(data[(9*4+9*4+16*4):(9*4+9*4+16*4+4)],np.float32)[0]
-        self.timestamp = np.fromstring(data[(9*4+9*4+16*4+4):(9*4+9*4+16*4+4+8)],np.long)[0]
+        self.timestamp = np.fromstring(data[(9*4+9*4+16*4+4):(9*4+9*4+16*4+4+8)],np.longlong)[0]
         depth_im = np.fromstring(data[(9*4+9*4+16*4+4+8):((9*4+9*4+16*4+4+8)+self.im_width*self.im_height*2)],np.uint16).reshape(self.im_height,self.im_width)
         self.color_im = np.fromstring(data[((9*4+9*4+16*4+4+8)+self.im_width*self.im_height*2):],np.uint8).reshape(self.im_height,self.im_width,3)
 

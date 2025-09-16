@@ -26,7 +26,7 @@ masks:
 # Values Used for RGB Visualization of depth images.
 depthVisualization:
   minDepth: 0.0  # meters. Depth less than this value not considered in creating rgb visualization of depth.
-  maxDepth: 1.5  # meters. Depth more than this value not considered in creating rgb visualization of depth.
+  maxDepth: 1.25  # meters. Depth more than this value not considered in creating rgb visualization of depth.
 
 # depth2depth Module
 depth2depth:

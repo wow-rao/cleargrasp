@@ -164,7 +164,7 @@ if __name__ == '__main__':
         min_depth_val = config.depthVisualization.minDepth
         max_depth_val = config.depthVisualization.maxDepth
 
-        colorbar = create_colorbar(colorbar_height, 80, min_depth_val, max_depth_val, 
+        colorbar = create_colorbar(colorbar_height, 80, config.depthVisualization.minDepth, config.depthVisualization.maxDepth, 
                                    cv2.COLORMAP_JET, reverse_scale=True)
         final_display = np.concatenate((grid_image, colorbar), axis=1)
         

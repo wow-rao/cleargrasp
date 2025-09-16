@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-bin/x86_64/depth2depth \
+bin/aarch64/depth2depth \
  "sample_files/input-depth.png" \
  "sample_files/output-depth.png" \
  -xres 256 -yres 144 \

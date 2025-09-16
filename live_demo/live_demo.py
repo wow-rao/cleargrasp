@@ -148,7 +148,7 @@ if __name__ == '__main__':
                                               color_mode=cv2.COLORMAP_JET, reverse_scale=True)
         filtered_output_depth_mapped = utils.depth2rgb(filtered_output_depth,
                                                        min_depth=config.depthVisualization.minDepth,
-                                                       max_depth=config.depthVisualization.maxDepth,
+                                                       max_depth=1,
                                                        color_mode=cv2.COLORMAP_JET, reverse_scale=True)
         color_img = cv2.cvtColor(color_img, cv2.COLOR_RGB2BGR)
         surface_normals_rgb = cv2.cvtColor(surface_normals_rgb, cv2.COLOR_RGB2BGR)

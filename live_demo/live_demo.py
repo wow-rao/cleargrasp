@@ -23,6 +23,27 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from api import utils, depth_completion_api
 from realsense import camera
 
+def create_colorbar(height, width, min_val, max_val, colormap, reverse_scale=False):
+    if reverse_scale:
+        gradient = np.linspace(max_val, min_val, height)
+    else:
+        gradient = np.linspace(min_val, max_val, height)
+    
+    colorbar_values = np.tile(gradient, (width, 1)).T
+
+    norm_values = ((colorbar_values - min_val) / (max_val - min_val) * 255).astype(np.uint8)
+    
+    colorbar_img = cv2.applyColorMap(norm_values, colormap)
+
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    max_text = f"{max_val:.2f} m"
+    min_text = f"{min_val:.2f} m"
+
+    cv2.putText(colorbar_img, max_text, (5, 20), font, 0.6, (255, 255, 255), 2)
+    cv2.putText(colorbar_img, min_text, (5, height - 10), font, 0.6, (255, 255, 255), 2)
+    
+    return colorbar_img
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -139,7 +160,15 @@ if __name__ == '__main__':
                                       np.zeros(color_img.shape, dtype=color_img.dtype)), 1)
         grid_image = np.concatenate((grid_image1, grid_image2), 0)
 
-        cv2.imshow('Live Demo', grid_image)
+        colorbar_height = grid_image.shape[0]
+        min_depth_val = config.depthVisualization.minDepth
+        max_depth_val = config.depthVisualization.maxDepth
+
+        colorbar = create_colorbar(colorbar_height, 80, min_depth_val, max_depth_val, 
+                                   cv2.COLORMAP_JET, reverse_scale=True)
+        final_display = np.concatenate((grid_image, colorbar), axis=1)
+        
+        cv2.imshow('Live Demo', final_display)
         keypress = cv2.waitKey(10) & 0xFF
         if keypress == ord('q'):
             break
